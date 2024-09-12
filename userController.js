@@ -68,6 +68,7 @@ const accessToken =
   "eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjpzS3dsMnlsV0VtMjVmcXhwTU40cWY4MXE2OWFFdWFyMnpLMUdhVGxjdWNZIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNzI2MTIwNjY5LjE5ODM5MSwiaWF0IjoxNzI2MDM0MjY5LjE5ODM5MSwianRpIjoiZFFTcGptaHFHS1dUY3NkU0dOM0NYdlg0NUMtU0tRIiwiY2lkIjoicFVvSm8xNHlQZ3gtdThXcEFSb3VBQSIsImxpZCI6InQyXzE4aDJ6cjBobTMiLCJhaWQiOiJ0Ml8xOGgyenIwaG0zIiwibGNhIjoxNzI1OTQxMTgxMDQ4LCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyIsImZsbyI6OX0.KalfNckwSvXngYTepf7ffh8OmNbvux2EYVmLvd_FXmSYNVyrjGPv5_n-iN2ZHOLeGQ7FMMgNn_ymCs1aczk08FiCws3SEZKvmILni1aEcDvXxu5LFBHX0mudgaruznCqx7wTO5aTQl_899OMlxNkZap_tPCG-mNx5j9JhWeKl36JIZ-OBwPdrqty-nSV-nIrH5-t3tE37LssWVxyQ5__B0YUWoYMZ2QxZQhCfjLNvdKi6xO854RZhLOXi2q1ADI1lf0IJ5ncTOqiPGnNzU8XRMe69AchBtkEXkWLap-itIWjAMWbU_c-_MxCA0fnjK0CcQ-X4v32AU2g_fTCnwJ3tQ";
 
 exports.middleware = async (req, res, next) => {
+  console.log("request");
   try {
     console.log(req.cookies);
     const token = req.cookies.access_token;
@@ -105,4 +106,16 @@ exports.getUser = async (req, res) => {
       user: user.username,
     });
   } catch (e) {}
+};
+
+exports.logout = async (req, res) => {
+  try {
+    res.clearCookie("access_token");
+    res.status(200).json({ status: "success" });
+  } catch (e) {
+    res.status(400).json({
+      status: "fail",
+      message: e.message,
+    });
+  }
 };

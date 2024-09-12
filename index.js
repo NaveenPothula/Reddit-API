@@ -83,6 +83,8 @@ app.get(
 
 app.get("/api/verify", userController.middleware, userController.getUser);
 
+app.get("/api/logout", userController.middleware, userController.logout);
+
 app.get("/", (req, res) => {
   res.status(200).json({
     status: "success",
